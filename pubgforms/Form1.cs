@@ -2,10 +2,9 @@
 using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Text.Json;
 using AutoUpdaterDotNET;
-using System.IO;
 using Telegram.Bot;
-using Microsoft.Extensions.Configuration;
 
 namespace pubgforms
 {
@@ -18,12 +17,21 @@ namespace pubgforms
             AutoUpdater.HttpUserAgent = Guid.NewGuid().ToString();
             AutoUpdater.ReportErrors = true;
             AutoUpdater.Start("https://raw.githubusercontent.com/Westearn/search/main/version.xml");
-            var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
-            .Build();
+            
+            string json = Properties.Resources.appsettings;
+            JsonDocument doc = JsonDocument.Parse(json);
+            string token = string.Empty;
 
-            botClient = new TelegramBotClient(configuration["TelegramBot:Token"]);
+            try
+            {
+                token = doc.RootElement.GetProperty("TelegramBot").GetProperty("Token").GetString();
+            }
+            finally
+            {
+                doc.Dispose();
+            }
+
+            botClient = new TelegramBotClient(token);
             button_Go.BringToFront();
             this.list_map.SetItemChecked(0, Properties.Settings.Default.TaegoVar);
             this.list_map.SetItemChecked(1, Properties.Settings.Default.KarakinVar);
