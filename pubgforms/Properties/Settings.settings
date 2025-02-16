@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="TelegramID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1705425261</Value>
+      <Value Profile="(Default)">0000000000</Value>
     </Setting>
     <Setting Name="ErangelVar" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
