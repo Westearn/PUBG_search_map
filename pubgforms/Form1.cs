@@ -16,7 +16,7 @@ namespace pubgforms
             InitializeComponent();
             AutoUpdater.HttpUserAgent = Guid.NewGuid().ToString();
             AutoUpdater.ReportErrors = true;
-            AutoUpdater.Start("https://raw.githubusercontent.com/Westearn/search/main/version.xml");
+            AutoUpdater.Start("https://raw.githubusercontent.com/Westearn/PUBG_search_map/master/pubgforms/version.xml");
             
             string json = Properties.Resources.appsettings;
             JsonDocument doc = JsonDocument.Parse(json);
